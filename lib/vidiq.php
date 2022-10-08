@@ -34,7 +34,7 @@ class Vidiq
             "Authorization" => "Bearer ".CHANNEL_TOKEN,
         );
         $data = array (
-            "q[]"   => $tag,
+            "q"   => $tag,
             "im"    => "4.5",
             "group" => "V5",
             "src"   => ""
@@ -55,11 +55,9 @@ class Vidiq
         // $this->setOpt(CURLOPT_AUTOREFERER, true);
         // $this->setOpt(CURLOPT_VERBOSE, true);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, "GET");
-        // $this->setOpt(CURLOPT_POSTFIELDS, $data);
-        // $this->setOpt(CURLOPT_POSTFIELDS, $this->Json('encode', $data));
         $this->exec();
         $this->close();
-
+        
         return $this;
     }
 
@@ -88,7 +86,6 @@ class Vidiq
 
     public function setOpt($option, $value) 
     {
-        // return curl_setopt($this->curl, $option, $value);
         $this->options[$option] = $value;
 
         return $this;

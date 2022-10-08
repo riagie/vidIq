@@ -24,7 +24,14 @@ chrome
 6. double click vidiq.bat
 
 ### Description
-pause next in check key vidiq 3 second and looping interval 10 data in 20 second then update file config *SLEEP* and *MAX_SLEEP*
+pause next in check key vidiq 1 second and looping interval 10 data in 2 second then update file config *SLEEP* and *MAX_SLEEP*
+
+### Developer mode
+```
+require('lib/vidiq.php');
+$vidiq = new Vidiq();
+$vidiq = $vidiq->init(*text_search*)
+```
 
 ### Trick limit output console bat desc limit 
 1. remove plugin vidiq in browser and chaneel youtube in account vidiq

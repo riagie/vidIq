@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 date_default_timezone_set('Asia/Jakarta');
 
 ini_set('set_time_limit', 300);
@@ -25,13 +25,13 @@ $number_sleep = 1;
 while($number > 0) {
     $cells_no = $reader->getActiveSheet()->getCell('A'.($number+1))->getValue();
     $cells_tag = $reader->getActiveSheet()->getCell('B'.($number+1))->getValue();
-    $cells_s_volume = $reader->getActiveSheet()->getCell('C'.($number+1))->getValue();
+    $cells_ems = $reader->getActiveSheet()->getCell('C'.($number+1))->getValue();
 
-    if(empty($cells_tag) && empty($cells_s_volume)) {
+    if(empty($cells_tag) && empty($cells_ems)) {
         echo "file ".FILE_EXCEL." not data or is blank\n"; break;
     }
 
-    if($cells_tag && empty($cells_s_volume)) {
+    if($cells_tag && empty($cells_ems)) {
         $msg = $vidiq->init(trim($cells_tag));
         $vidiq->DEBUG($vidiq->Json('encode', $msg));
         if (empty($msg->response)) {
@@ -39,13 +39,14 @@ while($number > 0) {
             echo "sorry, daily limit or acsess invalid.\n"; break;
         }
 
-        if (!is_array($vidiq->Json('decode', $msg->response))) {
+        if (!is_array($vidiq->Json('decode', $msg->response, true))) {
             $vidiq->DEBUG($vidiq->Json('encode', $msg), false, true);
             echo $vidiq->Json('encode', $msg->response)."\n";
         }
-        
-        $cells = 'B';
-        foreach ((array) $vidiq->Json('decode', $msg->response)[0] as $key => $value) {
+
+        $cells = 'C';
+        $cells_tag = trim($cells_tag);
+        foreach ((array) $vidiq->Json('decode', $msg->response)->search_stats->compvol->$cells_tag as $key => $value) {
             $set_value = $reader->getActiveSheet()->setCellValue($cells.($number+1), $value);
             $writer = PHPExcel_IOFactory::createWriter($reader, 'Excel2007');
             $writer->save(FOLDER_EXCEL.FILE_EXCEL.'.xlsx');
