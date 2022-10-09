@@ -165,12 +165,9 @@ class Vidiq
         if (DEBUG == 1) {
             error_log('[' . date("D M j H:i:s Y", time()) . '][INFO] ' . $string . "\n", INFO, LOGS_INFO);
             
-            if ($autodump || (empty($string) && $string !== 0 && $string !== '0') || $string === true) 
+            if ($autodump) 
             {
                 print_r(PHP_EOL); var_dump($string); print_r(PHP_EOL);
-            } else 
-            {
-                print_r(PHP_EOL); print_r($string); print_r(PHP_EOL); 
             }
         }
     }

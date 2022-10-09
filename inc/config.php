@@ -32,7 +32,7 @@ define('FILE_EXCEL', 'vidiq');
 // define('MAX_EXECUTION', 30);
 define('MAX_TIMEOUT', 30);
 define('SLEEP', 1);
-define('MAX_SLEEP', 2);
+define('MAX_SLEEP', 1);
 
 define('ERROR', 3); // fatal
 define('INFO', 3); // result

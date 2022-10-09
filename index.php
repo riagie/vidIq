@@ -1,14 +1,14 @@
 <?php
 
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 date_default_timezone_set('Asia/Jakarta');
 
 ini_set('set_time_limit', 300);
 ini_set('memory_limit', '1024M');
 ini_set('max_execution_time', 43200);
 
-define('DEBUG', 0);
+define('DEBUG', 1);
 
 require dirname(__FILE__) . '/vendor/autoload.php';
 require('inc/config.php');
@@ -47,11 +47,14 @@ while($number > 0) {
         $cells = 'C';
         $cells_tag = trim($cells_tag);
         foreach ((array) $vidiq->Json('decode', $msg->response)->search_stats->compvol->$cells_tag as $key => $value) {
-            $set_value = $reader->getActiveSheet()->setCellValue($cells.($number+1), $value);
-            $writer = PHPExcel_IOFactory::createWriter($reader, 'Excel2007');
-            $writer->save(FOLDER_EXCEL.FILE_EXCEL.'.xlsx');
+            if ($key != 'volume') {
+                $set_value = $reader->getActiveSheet()->setCellValue($cells.($number+1), $value);
+                $writer = PHPExcel_IOFactory::createWriter($reader, 'Excel2007');
+                $writer->save(FOLDER_EXCEL.FILE_EXCEL.'.xlsx');
 
-            ++$cells;
+                ++$cells;
+                ++$cells;
+            }
         }
 
         echo $cells_no."|".$cells_tag."|done\n"; sleep(SLEEP);
