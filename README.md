@@ -23,7 +23,8 @@ chrome
 5. closed browser (firefox or chrome) connected from vidiq
 6. double click vidiq.bat
 ### Description
-pause next in check key vidiq 1 second and looping interval 10 data in 2 second then update file config *SLEEP* and *MAX_SLEEP*
+1. download PHP 7.3.9 portable and save it in the **lib/** folder with the folder name *php*
+2. pause next in check key vidiq 1 second and looping interval 10 data in 2 second then update file config *SLEEP* and *MAX_SLEEP*
 ### Developer mode
 ```
 require('lib/vidiq.php');
