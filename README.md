@@ -1,4 +1,4 @@
-vidiq-bot-keyword-explorer
+vidIQ-key-explorer
 ==
 
 Vidiq Keyword Explorer API Wrapper 
